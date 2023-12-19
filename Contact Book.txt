@@ -1,0 +1,79 @@
+class ContactBook :
+    def __init__(self):
+        self.contact={}
+    
+    def add_contact(self,name,ph_no,address,mail):
+        self.contact[name]={"ph_no":ph_no , "address":address,'mail':mail }
+        print(f"Contact {name} saved successfully")
+    
+    def view_contact(self):
+        print("Contact List :- ")
+        for name, details in self.contact.items():
+            print(f"Name: {name}, PhoneNumber: {details['ph_no']}, Email: {details['mail']}, Address: {details['address']}")
+
+            
+    def search_contact(self,search):
+        f=0
+        for name in self.contact:
+            if (search.lower() in name.lower() ):
+                f=1
+                break
+        if f==1 :
+            print(f"Contact {name} is found !!")
+        else :
+            print(f"Contact not found")
+                
+    def update_contact(self,name,ph_no,mail,address):
+        if name in self.contact :
+             self.contact[name]={'ph_no':ph_no , 'mail':mail , 'address' : address }
+             print(f"Contact {name} updated successfully.")
+        else :
+            print("Contact not found..!!")
+            
+    def delete_contact(self,name):
+        if name in self.contact :
+            del self.contact[name]
+            print(f"Contact {name} deleted successfully..")
+        else :
+            print("Contact not found..!!")
+            
+def main():
+    contact_book=ContactBook()
+    while True :
+        print("Display menu !! \n")
+        print("1.Add a contact \n 2.View contacts \n 3.Search a contact\n4.Update a contact\n5.Delete a contact \n 6.Exit\n")
+        choice=int(input("Enter your choice (1-6)"))
+        if choice==1 :
+            name=input("Enter your name")
+            ph_no=int(input("Enter your phone number"))
+            address=input("Enter your address")
+            mail=input("Enter your mail id")
+            contact_book.add_contact(name,ph_no,address,mail)
+            
+        elif choice==2 :
+            contact_book.view_contact()
+            
+        elif choice==3 :
+            key=input("Enter name to search")
+            contact_book.search_contact(key)
+            
+        elif choice == 4:
+            name=input("Enter the name of contact that needs to be updated")
+            ph_no = input("Enter new phone number: ")
+            mail = input("Enter new email: ")
+            address = input("Enter new address: ")
+            contact_book.update_contact(name, ph_no, mail, address)
+            
+        elif choice==5 :
+            name = input("Enter the name of the contact to delete: ")
+            contact_book.delete_contact(name)
+            
+        elif choice==6 :
+            print("Exiting...")
+            break
+        
+        else :
+            print("Invalid choice")
+        
+if __name__ == '__main__' :
+    main()
